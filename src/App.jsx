@@ -1,31 +1,34 @@
-import { Canvas, useFrame } from "@react-three/fiber"
-import { Butterfly } from "./Butterfly"
-import { Environment, Lightformer, OrbitControls, Float, ContactShadows, Text3D, Center, } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber"
+import { Environment, OrbitControls, Float, Text3D, Center, } from "@react-three/drei"
 import * as THREE from 'three'
 import { LayerMaterial, Base, Depth, Noise } from 'lamina'
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import Moon from "./Moon"
 
 function App() {
 
   return (
     <>
-      <Canvas camera={{ position: [0, 0, window.innerWidth < 700 ? 7 : 5] }} style={{position: 'absolute', width: '100%', height: '100dvh'}}>
+      {/* 3D-Canvas */}
+      <Canvas camera={{ position: [0, 0, window.innerWidth < 700 ? 7 : 5] }} style={{ position: 'absolute', width: '100%', height: '100dvh' }}>
+        
+        {/* Camera Controls (right click to move, left click to rotate, scroll to zoom) */}
         <OrbitControls />
+        
+        {/* Staging/Lights */}
         <pointLight position={[10, 10, 5]} />
         <pointLight position={[-10, -10, -5]} />
         <ambientLight intensity={0.4} />
 
-
-        {/* <Butterflies /> */}
-
+        {/* Moon Model */}
         <Moon scale={2} position={[0, 1, 0]} />
 
+        {/* Floating Text */}
         <group position={[0, 0, 0]}>
-          <Float 
-            position={[0, -2.5, 0]} 
-            speed={1} 
-            rotationIntensity={1} 
+          <Float
+            position={[0, -2.5, 0]}
+            speed={1}
+            rotationIntensity={1}
             floatIntensity={1}
           >
             <Center>
@@ -35,10 +38,9 @@ function App() {
               </Text3D>
             </Center>
           </Float>
-          {/* <ContactShadows scale={10} blur={3} opacity={0.25} far={10} /> */}
         </group>
 
-
+        {/* Background (black with hints of darkpurple/darkblue) */}
         <Environment background resolution={64}>
           <mesh scale={100}>
             <sphereGeometry args={[1, 64, 64]} />
@@ -49,8 +51,6 @@ function App() {
             </LayerMaterial>
           </mesh>
         </Environment>
-
-
 
       </Canvas>
     </>
