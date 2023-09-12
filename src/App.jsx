@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber"
-import { Environment, OrbitControls, Float, Text3D, Center, Stars, } from "@react-three/drei"
+import { Environment, OrbitControls, Float, Text3D, Center, Stars, CameraShake, } from "@react-three/drei"
 import * as THREE from 'three'
 import { LayerMaterial, Base, Depth, Noise } from 'lamina'
 import { useRef, useState, useEffect } from "react"
@@ -13,7 +13,8 @@ function App() {
       <Canvas camera={{ position: [0, 0, window.innerWidth < 700 ? 7 : 5] }} style={{ position: 'absolute', width: '100%', height: '100dvh' }}>
         
         {/* Camera Controls (right click to move, left click to rotate, scroll to zoom) */}
-        <OrbitControls />
+        {/* <OrbitControls /> */}
+        <CameraShake />
         
         {/* Staging/Lights */}
         <pointLight position={[10, 10, 5]} />
@@ -26,14 +27,22 @@ function App() {
         {/* Floating Text */}
         <group position={[0, 0, 0]}>
           <Float
-            position={[0, -2.5, 0]}
+            position={[0, -2, 0]}
             speed={1}
             rotationIntensity={1}
             floatIntensity={1}
           >
             <Center>
               <Text3D scale={0.3} font={'./Mplus1_Code_Regular.json'} castShadow receiveShadow>
-                {`Moon Quake Example\nBy JackJack`}
+                {`Moon Quake Example`}
+                <meshStandardMaterial color="white" roughness={0.1} metalness={0.5} />
+              </Text3D>
+              <Text3D scale={0.2} position={[0, -0.5, 0]} font={'./Mplus1_Code_Regular.json'} castShadow receiveShadow>
+                {`Click the moon to start/increase quake.\nDouble click to reset.`}
+                <meshStandardMaterial color="white" roughness={0.1} metalness={0.5} />
+              </Text3D>
+              <Text3D scale={0.15} position={[0, -1.3, 0]} font={'./Mplus1_Code_Regular.json'} castShadow receiveShadow>
+                {`Made by JackJack`}
                 <meshStandardMaterial color="white" roughness={0.1} metalness={0.5} />
               </Text3D>
             </Center>
