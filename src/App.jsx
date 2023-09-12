@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber"
-import { Environment, OrbitControls, Float, Text3D, Center, } from "@react-three/drei"
+import { Environment, OrbitControls, Float, Text3D, Center, Stars, } from "@react-three/drei"
 import * as THREE from 'three'
 import { LayerMaterial, Base, Depth, Noise } from 'lamina'
 import { useRef, useState, useEffect } from "react"
@@ -39,6 +39,9 @@ function App() {
             </Center>
           </Float>
         </group>
+
+        {/* Stars */}
+        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
 
         {/* Background (black with hints of darkpurple/darkblue) */}
         <Environment background resolution={64}>
